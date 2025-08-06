@@ -1,6 +1,9 @@
 import CreateSnippet from "./components/CreateSnippet";
+
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
+import Snippets from "./components/Snippets";
+
 
 function App() {
   return (
@@ -8,6 +11,7 @@ function App() {
         <Navbar />
         <Home />
         <CreateSnippet />
+        <Snippets />
     </>
   );
 }

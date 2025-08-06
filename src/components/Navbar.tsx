@@ -9,6 +9,7 @@ function Navbar() {
             </div>
             <ul className="flex space-x-4 mt-2">
                 <li><a href="/">My Snippets</a></li>
+                <li><a className="button bg-yellow-500 text-white p-2 rounded" href="/create">Create Snippet</a></li>
                 <li><a className="button bg-green-500 text-white p-2 rounded" href="/about">Log in</a></li>
                 <li><a className="button bg-blue-500 text-white p-2 rounded" href="/contact">Sign up</a></li>
             </ul>
