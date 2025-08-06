@@ -3,7 +3,7 @@
 
 function Navbar() {
     return (
-        <nav className="flex justify-between text-black p-2 rounded-lg m-4 shadow-lg">
+        <nav className=" flex justify-between text-black p-2 rounded-lg m-4 shadow-lg">
             <div className="p-2">
                 <a href="/">Code Buddy</a>
             </div>
