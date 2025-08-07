@@ -12,15 +12,23 @@ function CodeEditor() {
     const [code, setCode] = useState('# Write your code here...');
     const [language, setLanguage] = useState('python');
     const [theme, setTheme] = useState('vs-dark');
-
+    const [run, setRun] = useState(false);
+    const [input, setInput] = useState('');
+    const [output, setOutput] = useState('');
 
     const UtilsProps = {
         code,
         language,
         theme,
+        run,
+        setRun,
         setCode,
         setLanguage,
-        setTheme
+        setTheme,
+        input,
+        setInput,
+        output,
+        setOutput,
     };
 
     const handleEditorChange = (value: string | undefined, event: any) => {
@@ -49,7 +57,7 @@ function CodeEditor() {
 
             <Utils {...UtilsProps} />
 
-            <InputOutputPanel />
+            <InputOutputPanel {...UtilsProps} />
         </div>
     </>
   );

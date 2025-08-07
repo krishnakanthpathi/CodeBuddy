@@ -8,11 +8,17 @@ interface LanguageChangerProps {
 
 
 function LanguageChanger(props: LanguageChangerProps) {
-    const { code, setCode, language, setLanguage } = props;
-
+    const { setCode, setLanguage } = props;
+    const defaultCode: Record<string, string> = {
+        "python": '# Write your Python code here...',
+        "javascript": '// Write your JavaScript code here...',
+        "java": '// Write your Java code here...',
+        "csharp": '// Write your C# code here...',
+        "cpp": '// Write your C++ code here...'
+    }
     const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newLanguage = event.target.value;
-        setCode(`// This is a ${newLanguage} code snippet\n`);
+        setCode(defaultCode[newLanguage] || "");
         setLanguage(newLanguage);
         console.log('Language changed to:', newLanguage);
     };
@@ -21,8 +27,8 @@ function LanguageChanger(props: LanguageChangerProps) {
         <div className="flex items-center m-2 space-x-2">
             <label htmlFor="language" className="text-sm font-medium text-gray-700">Language:</label>
             <select id="language" onChange={handleLanguageChange} className="p-2 border border-gray-300 rounded-lg">
+                <option value="python" defaultChecked>Python</option>
                 <option value="javascript">JavaScript</option>
-                <option value="python">Python</option>
                 <option value="java">Java</option>
                 <option value="csharp">C#</option>
                 <option value="cpp">C++</option>

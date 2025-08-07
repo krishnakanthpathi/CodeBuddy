@@ -1,29 +1,43 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 interface UtilsProps {
     code: string;
     language: string;
     theme: string;
+    run: boolean;
+    input: string;
+    setOutput: (output: string) => void;
+    setRun: (run: boolean) => void;
     setCode: (code: string) => void;
     setLanguage: (language: string) => void;
     setTheme: (theme: string) => void;
 }
 
 function Utils(props: UtilsProps) {
-    const { code, language, theme, setCode, setLanguage, setTheme } = props;
+    const { input, setRun, language, setCode, setOutput } = props;
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
     const [runLoading, setRunLoading] = useState(false);
 
+
+
+    const defaultCode: Record<string, string> = {
+        "python": '# Write your Python code here...',
+        "javascript": '// Write your JavaScript code here...',
+        "java": '// Write your Java code here...',
+        "csharp": '// Write your C# code here...',
+        "cpp": '// Write your C++ code here...'
+    }
+
+
     const handleEditorReset = () => {
         setResetLoading(true);
         setTimeout(() => {
-            setCode('# Write your code here...');
-            setLanguage('python');
-            setTheme('vs-dark');
+            setCode(defaultCode[language] || "");
             setResetLoading(false);
+            console.log('Editor content reset to default for language:', language);
         }, 1000);
         console.log('Editor content reset');
     }
@@ -31,6 +45,7 @@ function Utils(props: UtilsProps) {
     const handleEditorSave = () => {
         setSaveLoading(true);
         setTimeout(() => {
+
             setSaveLoading(false);
         }, 1000);
         console.log('Editor content saved');
@@ -39,7 +54,15 @@ function Utils(props: UtilsProps) {
     const handleEditorRun = () => {
         setRunLoading(true);
         setTimeout(() => {
-            setRunLoading(false);
+            setRun(true);
+            // Simulate running the code
+            setTimeout(() => {
+
+                setOutput(`Output for ${language} code: ${input}`);
+                setRun(false);
+                setRunLoading(false);
+                console.log('Code executed successfully');
+            }, 1000);
         }, 1000);
         console.log('Editor content run');
     }
@@ -47,6 +70,7 @@ function Utils(props: UtilsProps) {
 
     return (
         <>
+            
             <div className="mt-4">
                 { !resetloading && <button onClick={handleEditorReset} className="bg-red-500 text-white p-2 rounded mr-2">Reset</button> }
                 { resetloading && <button  className="bg-gray-500 text-white p-2 rounded mr-2">Loading...</button> }
