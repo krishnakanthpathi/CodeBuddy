@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
+import LanguageChanger from './LangagueChanger';
 
 
 
@@ -16,8 +17,6 @@ function CodeEditor() {
         setLanguage('python');
         setTheme('vs-dark');
     }, []);
-
-    const [loading, setLoading] = useState(false);
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
@@ -58,6 +57,7 @@ function CodeEditor() {
     <>
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl  font-bold">Code Editor</h2>
+            <LanguageChanger />
             <Editor
                 height="400px"
                 language={language}
@@ -76,8 +76,8 @@ function CodeEditor() {
                 { !runLoading && <button onClick={handleEditorRun} className="bg-green-500 text-white p-2 rounded">Run</button> }
                 { runLoading && <button  className="bg-gray-500 text-white p-2 rounded">Loading...</button> }
             </div>
+            <InputOutputPanel />
         </div>
-       <InputOutputPanel />
     </>
   );
 }

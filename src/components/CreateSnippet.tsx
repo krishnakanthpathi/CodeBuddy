@@ -1,4 +1,4 @@
-import CodeEditor from "./CodeEditor";
+import CodeEditor from "./Editor/CodeEditor";
 import KnowledgeTab from "./KnowledgeTab";
 
 function CreateSnippet() {
