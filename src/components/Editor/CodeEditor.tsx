@@ -4,6 +4,7 @@ import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
 import LanguageChanger from './LangagueChanger';
 import Utils from './Utils';
+import ThemeSelector from './ThemeSelector';
 
 
 
@@ -11,6 +12,7 @@ function CodeEditor() {
     const [code, setCode] = useState('# Write your code here...');
     const [language, setLanguage] = useState('python');
     const [theme, setTheme] = useState('vs-dark');
+
 
     const UtilsProps = {
         code,
@@ -31,17 +33,22 @@ function CodeEditor() {
     <>
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl  font-bold">Code Editor</h2>
-            <LanguageChanger />
+
+            <div className="flex justify-between m-2">
+                <LanguageChanger {...UtilsProps} />
+                <ThemeSelector {...UtilsProps} />
+            </div>
+
             <Editor
                 height="400px"
                 language={language}
                 value={code}
                 theme={theme}
                 onChange={handleEditorChange}
-
             />
 
             <Utils {...UtilsProps} />
+
             <InputOutputPanel />
         </div>
     </>
