@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import { useState } from 'react';
 
 interface User {
     id: string;
@@ -15,6 +16,21 @@ interface UserProps {
 
 function Navbar(props: UserProps) {
     const { isAuthenticated, user, setUser, setIsAuthenticated } = props;
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const handleLogout = () => {
+        setIsLoggingOut(true);
+        setTimeout(() => {
+            setUser(null);
+            setIsAuthenticated(false);
+            setIsLoggingOut(false);
+        }, 1000);
+    };
+
+    const handleLogin = () => {
+        setUser({ id: '1', username: 'testuser', password: 'password' });
+        setIsAuthenticated(true);
+    };
+
     return (
         <nav className=" flex justify-between text-black p-2 rounded-lg m-4 shadow-lg">
             <div className="p-2">
@@ -27,10 +43,16 @@ function Navbar(props: UserProps) {
                 {isAuthenticated &&
                     <li><Link className="button bg-yellow-500 text-white p-2 rounded" to="/create">Create Snippet</Link></li>}
 
-                {isAuthenticated ? (
-                    <li><Link className="button bg-red-500 text-white p-2 rounded" to="/logout">Log out</Link></li>
-                ) : (
-                    <li><Link className="button bg-green-500 text-white p-2 rounded" to="/login">Log in</Link></li>
+                {(isAuthenticated && !isLoggingOut) &&  (
+                    <li><Link onClick={handleLogout} className="button bg-red-500 text-white p-2 rounded" to="/">Log out</Link></li>
+                )}
+
+                {isLoggingOut && (
+                    <li><Link className="button bg-gray-500 text-white p-2 rounded" to="/home">Logging out...</Link></li>
+                )}
+
+                {!isAuthenticated  && (  
+                    <li><Link onClick={handleLogin} className="button bg-green-500 text-white p-2 rounded" to="/login">Log in</Link></li>
                 )}
                 {!isAuthenticated && (
                     <li><Link className="button bg-blue-500 text-white p-2 rounded" to="/signup">Sign up</Link></li>

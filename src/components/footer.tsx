@@ -3,7 +3,7 @@
 function Footer() {
     return (
         <>
-            <footer className="bg-white text-black py-4 rounded-lg m-4 shadow-lg">
+            <footer className="bg-white bottom-0 text-black py-4 rounded-lg m-4 shadow-lg">
                 <div className="container mx-auto text-center">
                     <p>&copy; {new Date().getFullYear()} My Company. All rights reserved.</p>
                     <p>
