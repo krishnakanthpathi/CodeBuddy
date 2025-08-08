@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface InputOutputPanelProps {
     run: boolean;
@@ -13,7 +13,7 @@ interface InputOutputPanelProps {
 }
 
 function InputOutputPanel(props: InputOutputPanelProps) {
-    const { input, output , setInput , setOutput } = props;
+    const { output , setInput  } = props;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInput(event.target.value);
