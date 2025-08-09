@@ -41,7 +41,17 @@ function CodeEditor() {
     <>
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl  font-bold">Code Editor</h2>
+            <div className=''>
+                <label className=''>Title : </label>
+                <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Enter input for your code"
+                    className="border p-2 rounded mt-2"
+                />
 
+            </div>
             <div className="flex justify-between m-2">
                 <LanguageChanger {...UtilsProps} />
                 <ThemeSelector {...UtilsProps} />
