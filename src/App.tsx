@@ -7,6 +7,7 @@ import CreateSnippet from "./components/CreateSnippet";
 import Snippets from "./components/Snippets";
 import Footer from "./components/footer";
 
+import Logout from './components/Auth/Logout';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/snippets" element={<Snippets />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout {...UserProps} />} />
         </Routes>
         <Footer />
     </>

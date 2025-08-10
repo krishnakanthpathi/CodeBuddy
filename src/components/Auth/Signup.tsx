@@ -2,7 +2,7 @@
 function Signup() {
     return (
         <>
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <div className="flex flex-col items-center justify-center h-100 bg-white-100 m-4 rounded-lg shadow-xl">
                 <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
                 <form className="w-full max-w-sm">
                     <div className="mb-4">

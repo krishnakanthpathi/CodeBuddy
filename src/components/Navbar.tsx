@@ -23,12 +23,14 @@ function Navbar(props: UserProps) {
             setUser(null);
             setIsAuthenticated(false);
             setIsLoggingOut(false);
+            console.log('User logged out');
         }, 1000);
     };
 
     const handleLogin = () => {
         setUser({ id: '1', username: 'testuser', password: 'password' });
         setIsAuthenticated(true);
+        console.log('User logged in');
     };
 
     return (
@@ -44,7 +46,7 @@ function Navbar(props: UserProps) {
                     <li><Link className="button bg-yellow-500 text-white p-2 rounded" to="/create">Create Snippet</Link></li>}
 
                 {(isAuthenticated && !isLoggingOut) &&  (
-                    <li><Link onClick={handleLogout} className="button bg-red-500 text-white p-2 rounded" to="/">Log out</Link></li>
+                    <li><Link onClick={handleLogout} className="button bg-red-500 text-white p-2 rounded" to="/logout">Log out</Link></li>
                 )}
 
                 {isLoggingOut && (
