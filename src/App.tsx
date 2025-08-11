@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import CreateSnippet from "./components/CreateSnippet";
-import Snippets from "./components/Snippets";
+import CreateSnippet from "./components/Snippets/CreateSnippet";
+import Snippets from "./components/Snippets/Snippets";
 import Footer from "./components/footer";
 
 import Logout from './components/Auth/Logout';

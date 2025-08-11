@@ -1,5 +1,5 @@
-import CodeEditor from "./Playground/CodeEditor";
-import KnowledgeTab from "./KnowledgeTab";
+import CodeEditor from "../Playground/CodeEditor";
+import KnowledgeTab from "../KnowledgeTab";
 
 function CreateSnippet() {
   return (
