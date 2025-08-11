@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useRef } from 'react';
 
 import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
@@ -6,6 +6,11 @@ import LanguageChanger from './LangagueChanger';
 import Utils from './Utils';
 import ThemeSelector from './ThemeSelector';
 
+
+interface snippetState {
+    snaps: string;
+    timestamp: string;
+}
 
 
 function CodeEditor() {
@@ -16,6 +21,38 @@ function CodeEditor() {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
 
+    const [codeHistory, setCodeHistory] = useState<snippetState[]>();
+
+    const codeRef = useRef("");
+    useEffect(() => {
+        console.log('Code changed:', code);
+        codeRef.current = code;
+        const interval = setInterval(() => {
+            console.log('Auto-saving code:', code);
+            const newSnippet: snippetState = {
+                snaps: code,
+                timestamp: new Date().toISOString(),
+            }; 
+            if (codeRef.current === code) {
+                console.log('No change in code, skipping history update');
+                clearInterval(interval);
+                console.log('Interval cleared due to no change in code');
+                return;
+            }
+            setCodeHistory((prevHistory) => {
+                const updatedHistory = prevHistory ? [...prevHistory, newSnippet] : [newSnippet];
+                return updatedHistory;
+            });
+        }, 1000);
+        console.log('Code history updated:', codeHistory , interval);
+        localStorage.setItem('codeHistory', JSON.stringify(codeHistory));
+        localStorage.setItem('code', code);
+        return () => {
+            clearInterval(interval);
+            console.log('Interval cleared');
+        }
+    }, [code]);
+    
     const UtilsProps = {
         code,
         language,
@@ -36,7 +73,7 @@ function CodeEditor() {
         console.log('Editor content changed:', value , event);
     };
 
-    
+
   return (
     <>
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
