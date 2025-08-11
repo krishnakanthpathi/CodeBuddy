@@ -15,7 +15,7 @@ interface UtilsProps {
 }
 
 function Utils(props: UtilsProps) {
-    const { input, setRun, language, setCode, setOutput } = props;
+    const { code , input, setRun, language, setCode, setOutput } = props;
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
@@ -45,7 +45,11 @@ function Utils(props: UtilsProps) {
     const handleEditorSave = () => {
         setSaveLoading(true);
         setTimeout(() => {
+            localStorage.setItem('code', code);
+            localStorage.setItem('language', language);
+            localStorage.setItem('input', input);
 
+            console.log('Editor content saved to localStorage');
             setSaveLoading(false);
         }, 1000);
         console.log('Editor content saved');
@@ -61,7 +65,7 @@ function Utils(props: UtilsProps) {
                 setOutput(`Output for ${language} code: ${input}`);
                 setRun(false);
                 setRunLoading(false);
-                console.log('Code executed successfully');
+                console.log('Code executed successfully' , {language, input , code});
             }, 1000);
         }, 1000);
         console.log('Editor content run');

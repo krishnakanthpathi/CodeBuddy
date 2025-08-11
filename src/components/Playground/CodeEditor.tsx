@@ -14,44 +14,35 @@ interface snippetState {
 
 
 function CodeEditor() {
-    const [code, setCode] = useState('# Write your code here...');
+    const [code, setCode] = useState('# Write your code here... :)');
     const [language, setLanguage] = useState('python');
     const [theme, setTheme] = useState('vs-dark');
+    const [title , setTitle] = useState('CodeBuddy Snippet');
     const [run, setRun] = useState(false);
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
 
     const [codeHistory, setCodeHistory] = useState<snippetState[]>();
+    
+    const codeRef = useRef(code);
 
-    const codeRef = useRef("");
+
     useEffect(() => {
-        console.log('Code changed:', code);
-        codeRef.current = code;
         const interval = setInterval(() => {
-            console.log('Auto-saving code:', code);
-            const newSnippet: snippetState = {
-                snaps: code,
-                timestamp: new Date().toISOString(),
-            }; 
-            if (codeRef.current === code) {
-                console.log('No change in code, skipping history update');
-                clearInterval(interval);
-                console.log('Interval cleared due to no change in code');
-                return;
+            if (codeRef.current !== code) {
+                const newSnippet: snippetState = {
+                    snaps: code,
+                    timestamp: new Date().toISOString(),
+                };
+                setCodeHistory(prev => prev ? [...prev, newSnippet] : [newSnippet]);
+                codeRef.current = code;
+                console.log('Code history updated:', newSnippet);
             }
-            setCodeHistory((prevHistory) => {
-                const updatedHistory = prevHistory ? [...prevHistory, newSnippet] : [newSnippet];
-                return updatedHistory;
-            });
-        }, 1000);
-        console.log('Code history updated:', codeHistory , interval);
-        localStorage.setItem('codeHistory', JSON.stringify(codeHistory));
-        localStorage.setItem('code', code);
-        return () => {
-            clearInterval(interval);
-            console.log('Interval cleared');
-        }
+        }, 45000);
+
+        return () => clearInterval(interval);
     }, [code]);
+
     
     const UtilsProps = {
         code,
@@ -79,11 +70,11 @@ function CodeEditor() {
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl  font-bold">Code Editor</h2>
             <div className=''>
-                <label className=''>Title : </label>
+                <label className='' >Title : </label>
                 <input
                     type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter input for your code"
                     className="border p-2 rounded mt-2"
                 />
