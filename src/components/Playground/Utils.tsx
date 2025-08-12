@@ -1,27 +1,39 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-interface UtilsProps {
-    code: string;
-    language: string;
-    theme: string;
-    run: boolean;
-    input: string;
-    setOutput: (output: string) => void;
-    setRun: (run: boolean) => void;
-    setCode: (code: string) => void;
-    setLanguage: (language: string) => void;
-    setTheme: (theme: string) => void;
-}
+import type { SnippetState } from '../../types/models';
+import type { UtilsProps } from '../../types/models';
+
+
 
 function Utils(props: UtilsProps) {
-    const { code , input, setRun, language, setCode, setOutput } = props;
+    const { id , code , input, setRun, language, setCode, setOutput } = props;
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
     const [runLoading, setRunLoading] = useState(false);
 
+    useEffect(() => {
+        const snippet : SnippetState = {
+            id : id,
+            snap: code,
+            timestamp: new Date().toISOString()
+        };
+        
+        const table = localStorage.getItem('snippets');
+        if (table) {
+            const snippets = JSON.parse(table);
+            // Check if the snippet already exists on id
+            snippets.push(snippet);
+            localStorage.setItem('snippets', JSON.stringify(snippets));
+        } else {
+            localStorage.setItem('snippets', JSON.stringify([snippet]));
+        }
 
+        console.log("Snippet State Updated", snippet);
+    }, [code]);
+
+    
 
     const defaultCode: Record<string, string> = {
         "python": '# Write your Python code here...',

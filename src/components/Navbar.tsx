@@ -5,6 +5,7 @@ interface User {
     id: string;
     username: string;
     password: string;
+    snippets: string[];
 }
 
 interface UserProps {
@@ -15,7 +16,7 @@ interface UserProps {
 }
 
 function Navbar(props: UserProps) {
-    const { isAuthenticated, user, setUser, setIsAuthenticated } = props;
+    const { isAuthenticated , user , setUser, setIsAuthenticated } = props;
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const handleLogout = () => {
         setIsLoggingOut(true);
@@ -28,7 +29,7 @@ function Navbar(props: UserProps) {
     };
 
     const handleLogin = () => {
-        setUser({ id: '1', username: 'testuser', password: 'password' });
+        setUser({ id: '1', username: 'testuser', password: 'password' , snippets: [] });
         setIsAuthenticated(true);
         console.log('User logged in');
     };

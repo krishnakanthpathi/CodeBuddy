@@ -1,4 +1,4 @@
-import { useEffect, useState , useRef } from 'react';
+import { useEffect, useState  } from 'react';
 
 import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
@@ -6,61 +6,31 @@ import LanguageChanger from './LangagueChanger';
 import Utils from './Utils';
 import ThemeSelector from './ThemeSelector';
 
-
-interface snippetState {
-    snaps: string;
-    timestamp: string;
-}
-
+import type { UtilsProps } from '../../types/models';
 
 
 
 function CodeEditor() {
-    const [code, setCode] = useState('# Write your code here... :)');
-    const [language, setLanguage] = useState('python');
-    const [theme, setTheme] = useState('vs-dark');
-    const [title , setTitle] = useState('CodeBuddy Snippet');
-    const [run, setRun] = useState(false);
-    const [input, setInput] = useState('');
-    const [output, setOutput] = useState('');
-
-    const [codeHistory, setCodeHistory] = useState<snippetState[]>([]);
-    
-    useEffect(() => {
-        localStorage.setItem('code', code);
-        localStorage.setItem('language', language);
-        localStorage.setItem('theme', theme);
-        localStorage.setItem('title', title);
-        localStorage.setItem('input', input);
-        localStorage.setItem('output', output);
-    }, [code, language, theme, title, input, output]);
+    const [code, setCode] = useState<string>('# Write your code here... :)');
+    const [language, setLanguage] = useState<string>('python');
+    const [theme, setTheme] = useState<string>('vs-dark');
+    const [title, setTitle] = useState<string>('CodeBuddy Snippet');
+    const [run, setRun] = useState<boolean>(false);
+    const [input, setInput] = useState<string>('');
+    const [output, setOutput] = useState<string>('');
+    const [id, setId] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        const codeState : snippetState = {
-            snaps: code,
-            timestamp: new Date().toISOString()
-        };
-        if (codeHistory.length > 0) {
-            const lastSnippet = codeHistory[codeHistory.length - 1];
-            const lastTimestamp = new Date(lastSnippet.timestamp);
-            const currentTimestamp = new Date();
-            const timeDifference = currentTimestamp.getTime() - lastTimestamp.getTime();
-
-            if (timeDifference > 5000) {
-                setCodeHistory((prevHistory) => [...prevHistory, codeState]);
-                console.log("History Updated", codeHistory);
-            } else {
-                console.log("Skipping History Update")
-            }
-           
-        }else {
-            // If no history exists, create the first snippet
-            setCodeHistory((prevHistory) => [...prevHistory, codeState]);
-        }
-    }, [code]);
-
+        const date = new Date();
+        const HashId = Math.random().toString(36).substring(2, 15);
+        const cryptedId = btoa(`${date.getTime()}-${HashId}`);
+        setId(cryptedId);
+        console.log("ID Set", cryptedId);
+    }, []); 
     
-    const UtilsProps = {
+
+    const UtilsProps : UtilsProps = {
+        id,
         code,
         language,
         theme,
