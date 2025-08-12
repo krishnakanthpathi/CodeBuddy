@@ -13,6 +13,8 @@ interface snippetState {
 }
 
 
+
+
 function CodeEditor() {
     const [code, setCode] = useState('# Write your code here... :)');
     const [language, setLanguage] = useState('python');
@@ -22,25 +24,39 @@ function CodeEditor() {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
 
-    const [codeHistory, setCodeHistory] = useState<snippetState[]>();
+    const [codeHistory, setCodeHistory] = useState<snippetState[]>([]);
     
-    const codeRef = useRef(code);
-
+    useEffect(() => {
+        localStorage.setItem('code', code);
+        localStorage.setItem('language', language);
+        localStorage.setItem('theme', theme);
+        localStorage.setItem('title', title);
+        localStorage.setItem('input', input);
+        localStorage.setItem('output', output);
+    }, [code, language, theme, title, input, output]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            if (codeRef.current !== code) {
-                const newSnippet: snippetState = {
-                    snaps: code,
-                    timestamp: new Date().toISOString(),
-                };
-                setCodeHistory(prev => prev ? [...prev, newSnippet] : [newSnippet]);
-                codeRef.current = code;
-                console.log('Code history updated:', newSnippet);
-            }
-        }, 45000);
+        const codeState : snippetState = {
+            snaps: code,
+            timestamp: new Date().toISOString()
+        };
+        if (codeHistory.length > 0) {
+            const lastSnippet = codeHistory[codeHistory.length - 1];
+            const lastTimestamp = new Date(lastSnippet.timestamp);
+            const currentTimestamp = new Date();
+            const timeDifference = currentTimestamp.getTime() - lastTimestamp.getTime();
 
-        return () => clearInterval(interval);
+            if (timeDifference > 5000) {
+                setCodeHistory((prevHistory) => [...prevHistory, codeState]);
+                console.log("History Updated", codeHistory);
+            } else {
+                console.log("Skipping History Update")
+            }
+           
+        }else {
+            // If no history exists, create the first snippet
+            setCodeHistory((prevHistory) => [...prevHistory, codeState]);
+        }
     }, [code]);
 
     
