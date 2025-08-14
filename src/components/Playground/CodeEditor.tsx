@@ -21,11 +21,15 @@ function CodeEditor() {
     const [id, setId] = useState<string | undefined>(undefined);
 
     useEffect(() => {
-        const date = new Date();
-        const HashId = Math.random().toString(36).substring(2, 15);
-        const cryptedId = btoa(`${date.getTime()}-${HashId}`);
-        setId(cryptedId);
-        console.log("ID Set", cryptedId);
+        
+        setTimeout(() => {
+            
+            const date = new Date();
+            const HashId = Math.random().toString(36).substring(2, 15);
+            const cryptedId = btoa(`${date.getTime()}-${HashId}`);
+            setId(cryptedId);
+            console.log("ID Set", cryptedId);
+        }, 1000);
     }, []); 
     
 
@@ -52,7 +56,7 @@ function CodeEditor() {
 
 
   return (
-    <>
+    <> { id &&
         <div className="bg-white-500 text-black p-4 rounded-lg shadow-xl">
             <h2 className="text-2xl  font-bold">Code Editor</h2>
             <div className=''>
@@ -82,7 +86,14 @@ function CodeEditor() {
             <Utils {...UtilsProps} />
 
             <InputOutputPanel {...UtilsProps} />
+        </div>}
+        
+        {!id &&
+        <div className="bg-white-500 h-100  text-black p-4 rounded-lg shadow-xl">
+            <h2 className="text-2xl font-bold">Loading Code Editor...</h2>
+            <p>Please wait while we set up your coding environment.</p>
         </div>
+        }
     </>
   );
 }
