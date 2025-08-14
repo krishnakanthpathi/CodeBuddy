@@ -33,7 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateSnippet {...UserProps} />} />
-          <Route path="/snippets" element={<Snippets />} />
+          <Route path="/snippets" element={<Snippets {...UserProps} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/logout" element={<Logout {...UserProps} />} />

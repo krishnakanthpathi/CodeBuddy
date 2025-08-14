@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 
@@ -8,7 +7,7 @@ import KnowledgeTab from "../KnowledgeTab";
 import type { UserProps } from "../../types/models";
 
 function CreateSnippet(props : UserProps) {
-  const { user , isAuthenticated } = props;
+  const {  isAuthenticated } = props;
 
   
 
