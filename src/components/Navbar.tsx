@@ -1,19 +1,7 @@
 import {Link} from 'react-router-dom';
 import { useState } from 'react';
+import type { UserProps } from '../types/models';
 
-interface User {
-    id: string;
-    username: string;
-    password: string;
-    snippets: string[];
-}
-
-interface UserProps {
-    isAuthenticated: boolean;
-    user: User | null;
-    setUser: (user: User | null) => void;
-    setIsAuthenticated: (isAuthenticated: boolean) => void;
-}
 
 function Navbar(props: UserProps) {
     const { isAuthenticated , user , setUser, setIsAuthenticated } = props;

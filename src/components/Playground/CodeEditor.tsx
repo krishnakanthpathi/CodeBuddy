@@ -28,6 +28,12 @@ function CodeEditor() {
             const HashId = Math.random().toString(36).substring(2, 15);
             const cryptedId = btoa(`${date.getTime()}-${HashId}`);
             setId(cryptedId);
+            setCode('# Write your code here... :)');
+            setTitle('CodeBuddy Snippet');
+            setLanguage('python');
+            setTheme('vs-dark');
+            setInput('');
+            setOutput('');
             console.log("ID Set", cryptedId);
         }, 1000);
     }, []); 
