@@ -31,6 +31,7 @@ function Utils(props: UtilsProps) {
             if (snippets[i].id === id) {
                 snippets[i] = snippet;
                 localStorage.setItem('snippets', JSON.stringify(snippets));
+                console.log("Snippet Updated id found", snippet);
                 return;
             }
         }

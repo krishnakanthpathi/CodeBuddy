@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Navigate } from "react-router-dom";
-import type { UserProps } from '../../types/models';
+import { Navigate , useNavigate } from "react-router-dom";
 
+
+import type { UserProps } from '../../types/models';
 import type { SnippetState } from '../../types/models';
 
 function Snippets(props : UserProps) {
     const { isAuthenticated } = props;
     const [snippets, setSnippets] = useState<SnippetState[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
     
     if (!isAuthenticated) {
         return <Navigate to="/login" />;
@@ -39,8 +42,14 @@ function Snippets(props : UserProps) {
     };
 
     const handleEditSnippet = (id: string) => {
-        console.log(`Editing snippet with ID: ${id}`);
-        // Navigate to edit snippet page or show modal
+        const snippet: SnippetState | undefined = snippets.find(snip => snip.id === id);
+        if (!snippet) {
+            console.log('Snippet not found:', id);
+            return;
+        }
+        console.log('Editing snippet:', snippet);
+        navigate("/create" , { state: { snippet } });
+        
     };
 
     const handleDeleteSnippet = (id: string) => {

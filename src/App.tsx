@@ -18,7 +18,7 @@ import Signup from './components/Auth/Signup';
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const UserProps : UserProps = {
     isAuthenticated,

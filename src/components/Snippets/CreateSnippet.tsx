@@ -8,7 +8,7 @@ import type { UserProps } from "../../types/models";
 
 function CreateSnippet(props : UserProps) {
   const {  isAuthenticated } = props;
-
+  
   
 
   if (!isAuthenticated) {
@@ -18,12 +18,10 @@ function CreateSnippet(props : UserProps) {
   return (
     <>
       <div className="grid grid-cols-2 gap-2 rounded-lg m-4">
-
         <>
           <KnowledgeTab />
           <CodeEditor  />
         </>
-
       </div>
     </>
   );

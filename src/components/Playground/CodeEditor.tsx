@@ -1,4 +1,5 @@
 import { useEffect, useState  } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
@@ -11,16 +12,24 @@ import type { UtilsProps } from '../../types/models';
 
 
 function CodeEditor() {
-    const [code, setCode] = useState<string>('# Write your code here... :)');
-    const [language, setLanguage] = useState<string>('python');
-    const [theme, setTheme] = useState<string>('vs-dark');
-    const [title, setTitle] = useState<string>('CodeBuddy Snippet');
+
+    const location = useLocation();
+    
+    // Extract snippet data from location state if available
+    const snippet = location.state?.snippet;
+
+    const [code, setCode] = useState<string>( snippet?.code || '# Write your code here... :)');
+    const [title, setTitle] = useState<string>(snippet?.title || 'CodeBuddy Snippet');
+    const [language, setLanguage] = useState<string>(snippet?.language || 'python');
+    const [theme, setTheme] = useState<string>(snippet?.theme || 'vs-dark');
+    const [input, setInput] = useState<string>(snippet?.input || '');
+    const [output, setOutput] = useState<string>(snippet?.output || '');
     const [run, setRun] = useState<boolean>(false);
-    const [input, setInput] = useState<string>('');
-    const [output, setOutput] = useState<string>('');
-    const [id, setId] = useState<string | undefined>(undefined);
+    const [id, setId] = useState<string | undefined>(snippet?.id || null);
 
     useEffect(() => {
+
+        if (id) return;
         
         setTimeout(() => {
             
