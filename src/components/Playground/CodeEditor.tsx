@@ -35,6 +35,7 @@ function CodeEditor() {
 
     const UtilsProps : UtilsProps = {
         id,
+        title,
         code,
         language,
         theme,

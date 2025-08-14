@@ -7,7 +7,7 @@ import type { UtilsProps } from '../../types/models';
 
 
 function Utils(props: UtilsProps) {
-    const { id , code , input, setRun, language, setCode, setOutput } = props;
+    const { id , title , code , input, theme , setRun, language, setCode, setOutput } = props;
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
@@ -15,23 +15,30 @@ function Utils(props: UtilsProps) {
 
     useEffect(() => {
         const snippet : SnippetState = {
-            id : id,
+            id: id || '',
             snap: code,
+            title: title,
+            language: language,
+            input: input,
+            theme: theme,
             timestamp: new Date().toISOString()
         };
-        
         const table = localStorage.getItem('snippets');
-        if (table) {
-            const snippets = JSON.parse(table);
-            // Check if the snippet already exists on id
-            snippets.push(snippet);
-            localStorage.setItem('snippets', JSON.stringify(snippets));
-        } else {
-            localStorage.setItem('snippets', JSON.stringify([snippet]));
-        }
+        const snippets = table ? JSON.parse(table) : [];
 
+        console.log("Current Snippets in LocalStorage", snippets);
+        for (let i = 0; i < snippets.length; i++) {
+            if (snippets[i].id === id) {
+                snippets[i] = snippet;
+                localStorage.setItem('snippets', JSON.stringify(snippets));
+                return;
+            }
+        }
+        snippets.push(snippet);
+        localStorage.setItem('snippets', JSON.stringify(snippets));
         console.log("Snippet State Updated", snippet);
-    }, [code]);
+        console.log("Snippets in LocalStorage", JSON.parse(localStorage.getItem('snippets') || '[]'));
+    }, [code , title , input , language , theme ]);
 
     
 

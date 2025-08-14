@@ -10,14 +10,13 @@ export interface User {
 
 
 export interface SnippetState {
-    id?: string;
+    id: string;
+    title: string;
     snap: string;
-    timestamp: string;
-}
-
-export interface SnippetContent {
-    code: string;
+    language: string;
+    theme: string;
     input: string;
+    timestamp: string;
 }
 
 
@@ -28,14 +27,11 @@ export interface UserProps {
     setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
-export interface SnippetProps {
-    snippets: SnippetContent[];
-    setSnippets: (snippets: SnippetContent[]) => void;
-}
 
 export interface UtilsProps {
     id?: string;
     code: string;
+    title: string;
     language: string;
     theme: string;
     run: boolean;
