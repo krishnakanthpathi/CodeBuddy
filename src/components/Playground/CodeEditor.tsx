@@ -18,12 +18,12 @@ function CodeEditor() {
     // Extract snippet data from location state if available
     const snippet = location.state?.snippet;
 
-    const [code, setCode] = useState<string>( snippet?.code || '# Write your code here... :)');
+    const [code, setCode] = useState<string>( snippet?.snap || '# Write your code here... :)');
     const [title, setTitle] = useState<string>(snippet?.title || 'CodeBuddy Snippet');
     const [language, setLanguage] = useState<string>(snippet?.language || 'python');
     const [theme, setTheme] = useState<string>(snippet?.theme || 'vs-dark');
     const [input, setInput] = useState<string>(snippet?.input || '');
-    const [output, setOutput] = useState<string>(snippet?.output || '');
+    const [output, setOutput] = useState<string>('');
     const [run, setRun] = useState<boolean>(false);
     const [id, setId] = useState<string | undefined>(snippet?.id || null);
 

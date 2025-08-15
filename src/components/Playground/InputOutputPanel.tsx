@@ -13,7 +13,7 @@ interface InputOutputPanelProps {
 }
 
 function InputOutputPanel(props: InputOutputPanelProps) {
-    const { output , setInput  } = props;
+    const { input , output , setInput  } = props;
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInput(event.target.value);
@@ -25,7 +25,7 @@ function InputOutputPanel(props: InputOutputPanelProps) {
         <div className="grid grid-cols-2 gap-2 rounded-lg mt-3">
             <div id="InputContainer" className="bg-gray-50 p-2 rounded-lg">
                 <label htmlFor="input" className="block p-2 text-sm font-medium text-gray-700">Input</label>
-                <textarea id="input" onChange={handleInputChange} className="w-full h-32 p-2 border border-gray-300 rounded-lg" ></textarea>
+                <textarea id="input" value={input} onChange={handleInputChange} className="w-full h-32 p-2 border border-gray-300 rounded-lg" ></textarea>
             </div>
             <div id="OutputContainer" className="bg-gray-50 p-2 rounded-lg">
                 <label htmlFor="output" className="block p-2 text-sm font-medium text-gray-700">Output</label>
