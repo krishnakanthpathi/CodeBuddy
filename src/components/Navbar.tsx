@@ -4,8 +4,9 @@ import type { UserProps } from '../types/models';
 
 
 function Navbar(props: UserProps) {
-    const { isAuthenticated , user , setUser, setIsAuthenticated } = props;
+    const { isAuthenticated , setUser, setIsAuthenticated } = props;
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+
     const handleLogout = () => {
         setIsLoggingOut(true);
         setTimeout(() => {
@@ -25,7 +26,10 @@ function Navbar(props: UserProps) {
     return (
         <nav className=" flex justify-between text-black p-2 rounded-lg m-4 shadow-lg">
             <div className="p-2">
-                <Link to="/">Code Buddy</Link>
+                <Link to="/"> 
+                 <img src="/logo_xl.png" alt="Logo" className="h-9 w-16 inline-block mr-2" />
+                 <span className="text-xl font-bold">Code Buddy</span>
+                </Link>
             </div>
             <ul className="flex space-x-4 mt-2">
                 {isAuthenticated && 
