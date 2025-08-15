@@ -45,3 +45,13 @@ export interface UtilsProps {
     setInput: (input: string) => void;
 
 }
+
+export interface ModelAlertsProps {
+    open: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    onCancel: () => void;
+    confirmText?: string;
+    cancelText?: string;
+}

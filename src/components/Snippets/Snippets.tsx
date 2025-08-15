@@ -22,9 +22,8 @@ function Modal({
     cancelText?: string;
 }) {
     if (!open) return null;
-    return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-30">
-            <div className="bg-white rounded-lg shadow-lg p-6 min-w-[300px]">
+    return (   <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
+            <div className="bg-white rounded-lg shadow-lg p-6 ">
                 <h2 className="text-lg font-semibold mb-2">{title}</h2>
                 <p className="mb-4">{message}</p>
                 <div className="flex justify-end gap-2">
