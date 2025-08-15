@@ -26,7 +26,8 @@ function CodeEditor() {
     const [output, setOutput] = useState<string>('');
     const [run, setRun] = useState<boolean>(false);
     const [id, setId] = useState<string | undefined>(snippet?.id || null);
-
+    const [canEdit, setCanEdit] = useState<boolean>(true);
+    
     useEffect(() => {
 
         if (id) return;
