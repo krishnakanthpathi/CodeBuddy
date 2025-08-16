@@ -8,8 +8,6 @@ import type { UserProps } from "../../types/models";
 
 function CreateSnippet(props : UserProps) {
   const {  isAuthenticated } = props;
-  
-  
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
