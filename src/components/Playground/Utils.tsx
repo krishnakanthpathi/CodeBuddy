@@ -14,7 +14,12 @@ function Utils(props: UtilsProps) {
     const [runLoading, setRunLoading] = useState(false);
 
     useEffect(() => {
-        const snippet : SnippetState = {
+        changeEffect();
+    }, [code , title , input , language , theme ]);
+
+    
+    const changeEffect = () => {
+         const snippet : SnippetState = {
             id: id || '',
             snap: code,
             title: title,
@@ -39,10 +44,7 @@ function Utils(props: UtilsProps) {
         localStorage.setItem('snippets', JSON.stringify(snippets));
         console.log("Snippet State Updated", snippet);
         console.log("Snippets in LocalStorage", JSON.parse(localStorage.getItem('snippets') || '[]'));
-    }, [code , title , input , language , theme ]);
-
-    
-
+    }
     const defaultCode: Record<string, string> = {
         "python": '# Write your Python code here...',
         "javascript": '// Write your JavaScript code here...',
@@ -65,10 +67,8 @@ function Utils(props: UtilsProps) {
     const handleEditorSave = () => {
         setSaveLoading(true);
         setTimeout(() => {
-            localStorage.setItem('code', code);
-            localStorage.setItem('language', language);
-            localStorage.setItem('input', input);
-
+            
+            changeEffect();
             console.log('Editor content saved to localStorage');
             setSaveLoading(false);
         }, 1000);
