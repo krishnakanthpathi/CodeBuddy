@@ -1,9 +1,8 @@
 
 import { useEffect, useState } from 'react';
 
-import type { SnippetState } from '../../types/models';
-import type { UtilsProps } from '../../types/models';
-
+import type { UtilsProps } from '../../types/props';
+import type { SnippetState } from '../../types/snippet';
 
 
 function Utils(props: UtilsProps) {

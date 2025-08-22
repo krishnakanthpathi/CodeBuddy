@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
-import type { User , UserProps } from './types/models';
+import type { UserProps } from './types/props';
+import type { User } from './types/user';
 
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
