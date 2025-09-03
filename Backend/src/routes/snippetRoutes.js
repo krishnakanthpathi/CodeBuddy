@@ -1,11 +1,12 @@
 import express from 'express';
+
 import {
   createSnippet,
   getUserSnippets,
   getSnippetById,
   updateSnippet,
   deleteSnippet
-} from '../models/Snippet.js';
+} from '../models/SnippetModels.js';
 
 const router = express.Router();
 
