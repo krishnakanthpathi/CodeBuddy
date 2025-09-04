@@ -5,7 +5,7 @@ export const createSnippetController = async (req, res) => {
     console.log(" creating a snippet  " + JSON.stringify(req.body));
     const snippet = await Snippets.createSnippet({ user_id, title, language, code });
     console.log(" created snippet id " + snippet.id);
-    res.json({ id: snippet.id });
+    res.json({message : "created sucessfullly" , "id": snippet.user_id });
 }
 
 export const getUserSnippetsController = async (req, res) => {
