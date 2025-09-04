@@ -13,19 +13,19 @@ import {
 const router = express.Router();
 
 // Create snippet
-router.post('/', createSnippetController);
+router.post('/', protect , createSnippetController);
 
 // Get user's snippets
-router.get('/:user_id' , getUserSnippetsController);
+router.get('/:user_id' , protect , getUserSnippetsController);
 
 // Get snippet by ID
-router.get('/snippet/:id', getSnippetByIdController);
+router.get('/snippet/:id', protect , getSnippetByIdController);
 
 // Update snippet
-router.put('/:id', updateSnippetController);
+router.put('/:id', protect , updateSnippetController);
 
 // Delete snippet
-router.delete('/:id', deleteSnippetController);
+router.delete('/:id', protect , deleteSnippetController);
 
 
 export default router;

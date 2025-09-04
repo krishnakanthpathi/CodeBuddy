@@ -13,6 +13,7 @@ import {
   login
 } from '../controllers/authController.js';
 
+import { protect } from '../middleware/authMiddleware.js';
 
 
 const router = express.Router();
@@ -23,16 +24,16 @@ router.post('/signup' , signup);
 // Login
 router.post('/login', login);
 
+// Get all users
+router.get('/', protect , getAllUsers);
+
 // Get user by ID
-router.get('/:id', getUserById);
+router.get('/:id', protect , getUserById);
 
-// Update user by ID
-router.put('/:id', updateUser);
+// Update user
+router.put('/:id', protect , updateUser);
 
-// Delete user by ID
-router.delete('/:id', deleteUser);
-
-// Get all users  
-router.get('/', getAllUsers);
+// Delete user
+router.delete('/:id', protect , deleteUser);
 
 export default router;
