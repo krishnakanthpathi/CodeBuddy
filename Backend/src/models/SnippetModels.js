@@ -12,9 +12,10 @@ const Snippets = {
 
   // Get all snippets for a user
   getUserSnippets: async (user_id) => {
+    const { id } = user_id;
     const [rows] = await db.query(
       `SELECT * FROM snippets WHERE user_id = ?`,
-      [user_id]
+      [id]
     );
     return rows;
   },

@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { protect } from '../middleware/authMiddleware.js';
+
 import {
   createSnippetController,
   getUserSnippetsController,
@@ -14,7 +16,7 @@ const router = express.Router();
 router.post('/', createSnippetController);
 
 // Get user's snippets
-router.get('/:user_id', getUserSnippetsController);
+router.get('/:user_id' , getUserSnippetsController);
 
 // Get snippet by ID
 router.get('/snippet/:id', getSnippetByIdController);
