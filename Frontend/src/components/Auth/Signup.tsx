@@ -1,5 +1,7 @@
+import React from 'react';
+import type { UserProps } from '../../types/props';
 
-function Signup() {
+function Signup(props: UserProps) {
     return (
         <>
             <div className="flex flex-col items-center justify-center h-100 bg-white-100 m-4 rounded-lg shadow-xl">

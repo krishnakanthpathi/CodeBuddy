@@ -7,7 +7,7 @@ import LanguageChanger from './LangagueChanger';
 import Utils from './Utils';
 import ThemeSelector from './ThemeSelector';
 
-import type { UtilsProps } from '../../types/models';
+import type { UtilsProps } from '../../types/props';
 
 
 

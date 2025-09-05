@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { UserProps } from './types/props';
 import type { User } from './types/user';
@@ -19,8 +19,9 @@ import Signup from './components/Auth/Signup';
 
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+
   const UserProps : UserProps = {
     isAuthenticated,
     user,
@@ -35,8 +36,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<CreateSnippet {...UserProps} />} />
           <Route path="/snippets" element={<Snippets {...UserProps} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login {...UserProps}/>} />
+          <Route path="/signup" element={<Signup {...UserProps} />} />
           <Route path="/logout" element={<Logout {...UserProps} />} />
         </Routes>
 

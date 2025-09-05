@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import { useState } from 'react';
-import type { UserProps } from '../types/models';
+import type { UserProps } from '../types/props';
 
 
 function Navbar(props: UserProps) {
@@ -15,12 +15,6 @@ function Navbar(props: UserProps) {
             setIsLoggingOut(false);
             console.log('User logged out');
         }, 1000);
-    };
-
-    const handleLogin = () => {
-        setUser({ id: '1', username: 'testuser', password: 'password' , snippets: [] });
-        setIsAuthenticated(true);
-        console.log('User logged in');
     };
 
     return (
@@ -47,7 +41,7 @@ function Navbar(props: UserProps) {
                 )}
 
                 {!isAuthenticated  && (  
-                    <li><Link onClick={handleLogin} className="button bg-green-500 text-white p-2 rounded" to="/login">Log in</Link></li>
+                    <li><Link  className="button bg-green-500 text-white p-2 rounded" to="/login">Log in</Link></li>
                 )}
                 {!isAuthenticated && (
                     <li><Link className="button bg-blue-500 text-white p-2 rounded" to="/signup">Sign up</Link></li>

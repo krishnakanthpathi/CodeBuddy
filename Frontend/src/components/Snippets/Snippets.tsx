@@ -1,34 +1,55 @@
 import { useState, useEffect } from 'react';
 import { Navigate , useNavigate } from "react-router-dom";
 
-import type { UserProps } from '../../types/models';
-import type { SnippetState } from '../../types/models';
+import type { UserProps } from '../../types/props';
+import type { SnippetState } from '../../types/snippet';
+
+import axios from 'axios';
+
 
 import Modal from '../Utils/ModelAlerts';
 
 function Snippets(props : UserProps) {
-    const { isAuthenticated } = props;
+    const { user , isAuthenticated } = props;
     
     const [snippets, setSnippets] = useState<SnippetState[]>([]);
     const [loading, setLoading] = useState(true);
 
     const [confirmEditId, setConfirmEditId] = useState<string | null>(null);
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
-
+    const apiUrl = import.meta.env.VITE_BACKEND_NODE_URL;
     const navigate = useNavigate();
     
     if (!isAuthenticated) {
         return <Navigate to="/login" />;
     }
+    
+    const fetchSnippets = async () => {
+        console.log('Fetching snippets for user:', user);
+        try {
+            const response = await fetch(apiUrl + `/snippets/${user?.id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user?.token}`
+                }
+            });
+            console.log('Fetch response status:', response);
+            if (!response.ok) {
+                throw new Error('Failed to fetch snippets');
+            }
+            const data = await response.json();
+            setSnippets(data);
+        } catch (error) {
+            console.error('Error fetching snippets:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        setTimeout(() => {
-            const snips = localStorage.getItem('snippets');
-            if (snips) {
-                setSnippets(JSON.parse(snips));
-            }
-            setLoading(false);
-        }, 1000);
+        setSnippets([]);
+        fetchSnippets();
     }, []);
 
     const handleEditSnippet = (id: string) => {

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import CodeEditor from "../Playground/CodeEditor";
 import KnowledgeTab from "../KnowledgeTab";
 
-import type { UserProps } from "../../types/models";
+import type { UserProps } from "../../types/props";
 
 function CreateSnippet(props : UserProps) {
   const {  isAuthenticated } = props;
