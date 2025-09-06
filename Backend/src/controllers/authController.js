@@ -7,7 +7,9 @@ dotenv.config();
 
 // Generate JWT Token
 const generateToken = (user) => {
-  return jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
+  return jwt.sign(
+    { id: user.id, email: user.email }, 
+    process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
@@ -52,7 +54,7 @@ export const login = async (req, res) => {
     const token = generateToken(user);
 
 
-    res.json({ message: 'Login successful', user , token });
+    res.json({ message: 'Login successful', user , "token" : token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
