@@ -1,13 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { UserProps } from '../../types/props';
+import { Navigate } from 'react-router-dom';
 
 function Login(props: UserProps) {
     const apiUrl = import.meta.env.VITE_BACKEND_NODE_URL;
-    
-    if (!apiUrl) {
-        return <div>Error: BACKEND_NODE_URL is not defined in environment variables.</div>;
-    }
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,13 +44,17 @@ function Login(props: UserProps) {
             });
             props.setIsAuthenticated(true);
             localStorage.setItem('token', token);
-
             console.log('Login successful:', response.data.token);
+            
         } catch (error) {
             console.error('Error during login:', error);
         }
     };
+    
 
+    if (props.isAuthenticated) {
+        return <Navigate to="/" replace />;
+    }
     return (
         <>
             <div className="flex flex-col items-center justify-center h-100 bg-white-100 m-4 rounded-lg shadow-xl">

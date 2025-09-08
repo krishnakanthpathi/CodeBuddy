@@ -70,10 +70,27 @@ function Snippets(props : UserProps) {
     };
 
     const confirmDelete = (id: string) => {
-        const updatedSnippets = snippets.filter(snippet => snippet.id !== id);
-        setSnippets(updatedSnippets);
-        localStorage.setItem('snippets', JSON.stringify(updatedSnippets));
+        const deleteSnippet = async () => {
+            try {
+                const response = await fetch(apiUrl + `/snippets/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${user?.token}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to delete snippet');
+                }
+                setSnippets(prevSnippets => prevSnippets.filter(snip => snip.id !== id));
+                console.log('Snippet deleted:', id);
+            } catch (error) {
+                console.error('Error deleting snippet:', error);
+            }
+        };
+        deleteSnippet();
         setConfirmDeleteId(null);
+        
     };
 
     const MapSnips = () => {
