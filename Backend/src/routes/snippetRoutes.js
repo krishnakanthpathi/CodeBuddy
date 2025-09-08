@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 // Create snippet
-router.post('/', protect , createSnippetController);
+router.post('/create', protect , createSnippetController);
 
 // Get user's snippets
 router.get('/:user_id' , protect , getUserSnippetsController);

@@ -9,10 +9,10 @@ export const createSnippetController = async (req, res) => {
     console.log("Creating a snippet for user " + user_id);
 
     const snippet = await Snippets.createSnippet({ user_id, title, language, code });
-
+    console.log("Created snippet with ID " + snippet);
     res.status(201).json({ 
       message: "Created successfully", 
-      id: snippet.id 
+      "id": snippet
     });
   } catch (err) {
     console.error(err);
