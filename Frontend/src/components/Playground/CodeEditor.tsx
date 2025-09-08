@@ -1,6 +1,5 @@
-import { use, useEffect, useState  } from 'react';
+import { useEffect, useState  } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Navigate } from "react-router-dom";
 import axios from 'axios';
 
 import Editor from '@monaco-editor/react';
