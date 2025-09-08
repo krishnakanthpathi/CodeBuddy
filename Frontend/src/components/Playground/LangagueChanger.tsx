@@ -8,7 +8,7 @@ interface LanguageChangerProps {
 
 
 function LanguageChanger(props: LanguageChangerProps) {
-    const { setCode, setLanguage } = props;
+    const { language , setCode, setLanguage } = props;
     const defaultCode: Record<string, string> = {
         "python": '# Write your Python code here...',
         "javascript": '// Write your JavaScript code here...',
@@ -26,8 +26,8 @@ function LanguageChanger(props: LanguageChangerProps) {
     return (
         <div className="flex items-center m-2 space-x-2">
             <label htmlFor="language" className="text-sm font-medium text-gray-700">Language:</label>
-            <select id="language" onChange={handleLanguageChange} className="p-2 border border-gray-300 rounded-lg">
-                <option value="python" defaultChecked>Python</option>
+            <select id="language" value={language} onChange={handleLanguageChange} className="p-2 border border-gray-300 rounded-lg">
+                <option value="python">Python</option>
                 <option value="javascript">JavaScript</option>
                 <option value="java">Java</option>
                 <option value="csharp">C#</option>

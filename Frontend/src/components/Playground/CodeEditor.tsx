@@ -1,5 +1,7 @@
-import { useEffect, useState  } from 'react';
+import { use, useEffect, useState  } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import axios from 'axios';
 
 import Editor from '@monaco-editor/react';
 import InputOutputPanel from './InputOutputPanel';
@@ -7,17 +9,22 @@ import LanguageChanger from './LangagueChanger';
 import Utils from './Utils';
 import ThemeSelector from './ThemeSelector';
 
-import type { UtilsProps } from '../../types/props';
+import type { UserProps, UtilsProps } from '../../types/props';
 
 
 
-function CodeEditor() {
+function CodeEditor(props : UserProps) {
+
+    const { user , isAuthenticated } = props;
+
+    if (!isAuthenticated) {
+        return <div>Please log in to access the code editor.</div>;
+    }
 
     const location = useLocation();
     
     // Extract snippet data from location state if available
     const snippet = location.state?.snippet;
-
     const [code, setCode] = useState<string>( snippet?.snap || '# Write your code here... :)');
     const [title, setTitle] = useState<string>(snippet?.title || 'CodeBuddy Snippet');
     const [language, setLanguage] = useState<string>(snippet?.language || 'python');
@@ -27,27 +34,52 @@ function CodeEditor() {
     const [run, setRun] = useState<boolean>(false);
     const [id, setId] = useState<string | undefined>(snippet?.id || null);
     // const [canEdit, setCanEdit] = useState<boolean>(true);
-    
-    useEffect(() => {
 
-        if (id) return;
-        
-        setTimeout(() => {
-            
-            const date = new Date();
-            const HashId = Math.random().toString(36).substring(2, 15);
-            const cryptedId = btoa(`${date.getTime()}-${HashId}`);
-            setId(cryptedId);
-            setCode('# Write your code here... :)');
-            setTitle('CodeBuddy Snippet');
-            setLanguage('python');
-            setTheme('vs-dark');
-            setInput('');
-            setOutput('');
-            console.log("ID Set", cryptedId);
-        }, 1000);
-    }, []); 
+    const updateSnippet = async (snippetData : any) => {
+        try {
+            const apiUrl = import.meta.env.VITE_BACKEND_NODE_URL ;
+            const response = await axios.put(apiUrl + `/snippets/snippet/${snippetData?.id}`, snippetData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user?.token}`,
+                },
+            });
+            console.log('Snippet updated successfully:', response.data);
+        } catch (error) {
+            console.error('Error updating snippet:', error);
+        }
+    };
     
+
+    useEffect(() => {
+        if (id) {
+            updateSnippet({ id, title, code, language });
+            return;
+        };
+        const create = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_BACKEND_NODE_URL ;
+                const res = await axios.post(apiUrl + '/snippets/create', {
+                    "user_id": user?.id,
+                    "title": title,
+                    "code": code,
+                    "language": language,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${user?.token}`,
+                    },
+                });
+                console.log('Snippet created successfully:', res.data);
+                setId(res.data.id);
+            
+            } catch (error) {
+                console.error('Error creating snippet:', error);
+            }
+        };
+        create();
+    }, [code , title , language ]); 
+        
 
     const UtilsProps : UtilsProps = {
         id,
@@ -69,7 +101,7 @@ function CodeEditor() {
     const handleEditorChange = (value: string | undefined, event: any) => {
         setCode(value || '');
         console.log('Editor content changed:', value , event);
-    };
+    };            
 
 
   return (

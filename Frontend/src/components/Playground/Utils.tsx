@@ -12,38 +12,7 @@ function Utils(props: UtilsProps) {
     const [saveLoading, setSaveLoading] = useState(false);
     const [runLoading, setRunLoading] = useState(false);
 
-    useEffect(() => {
-        changeEffect();
-    }, [code , title , input , language , theme ]);
-
     
-    const changeEffect = () => {
-         const snippet : SnippetState = {
-            id: id || '',
-            snap: code,
-            title: title,
-            language: language,
-            input: input,
-            theme: theme,
-            timestamp: new Date().toISOString()
-        };
-        const table = localStorage.getItem('snippets');
-        const snippets = table ? JSON.parse(table) : [];
-
-        console.log("Current Snippets in LocalStorage", snippets);
-        for (let i = 0; i < snippets.length; i++) {
-            if (snippets[i].id === id) {
-                snippets[i] = snippet;
-                localStorage.setItem('snippets', JSON.stringify(snippets));
-                console.log("Snippet Updated id found", snippet);
-                return;
-            }
-        }
-        snippets.push(snippet);
-        localStorage.setItem('snippets', JSON.stringify(snippets));
-        console.log("Snippet State Updated", snippet);
-        console.log("Snippets in LocalStorage", JSON.parse(localStorage.getItem('snippets') || '[]'));
-    }
     const defaultCode: Record<string, string> = {
         "python": '# Write your Python code here...',
         "javascript": '// Write your JavaScript code here...',
@@ -67,7 +36,6 @@ function Utils(props: UtilsProps) {
         setSaveLoading(true);
         setTimeout(() => {
             
-            changeEffect();
             console.log('Editor content saved to localStorage');
             setSaveLoading(false);
         }, 1000);

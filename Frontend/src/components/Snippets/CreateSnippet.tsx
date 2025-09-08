@@ -7,7 +7,7 @@ import KnowledgeTab from "../KnowledgeTab";
 import type { UserProps } from "../../types/props";
 
 function CreateSnippet(props : UserProps) {
-  const {  isAuthenticated } = props;
+  const { user , isAuthenticated } = props;
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
@@ -17,8 +17,8 @@ function CreateSnippet(props : UserProps) {
     <>
       <div className="grid grid-cols-2 gap-2 rounded-lg m-4">
         <>
-          <KnowledgeTab />
-          <CodeEditor  />
+          <KnowledgeTab  />
+          <CodeEditor {...props} />
         </>
       </div>
     </>
