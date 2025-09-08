@@ -22,10 +22,10 @@ router.get('/:user_id' , protect , getUserSnippetsController);
 router.get('/snippet/:id', protect , getSnippetByIdController);
 
 // Update snippet
-router.put('/:id', protect , updateSnippetController);
+router.put('/snippet/:id', protect , updateSnippetController);
 
 // Delete snippet
-router.delete('/:id', protect , deleteSnippetController);
+router.delete('/snippet/:id', protect , deleteSnippetController);
 
 
 export default router;
