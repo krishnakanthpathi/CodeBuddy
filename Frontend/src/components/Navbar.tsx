@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom';
 import { useState } from 'react';
 import type { UserProps } from '../types/props';
 
-import axios from 'axios';
 
 function Navbar(props: UserProps) {
     const { isAuthenticated , setUser, setIsAuthenticated } = props;

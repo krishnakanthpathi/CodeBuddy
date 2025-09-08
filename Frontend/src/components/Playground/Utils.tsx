@@ -1,12 +1,10 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import type { UtilsProps } from '../../types/props';
-import type { SnippetState } from '../../types/snippet';
-
 
 function Utils(props: UtilsProps) {
-    const { id , title , code , input, theme , setRun, language, setCode, setOutput } = props;
+    const {  code , input , setRun, language, setCode, setOutput } = props;
 
     const [resetloading, setResetLoading] = useState(false);
     const [saveLoading, setSaveLoading] = useState(false);
