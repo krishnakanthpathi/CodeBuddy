@@ -72,7 +72,7 @@ function Snippets(props : UserProps) {
     const confirmDelete = (id: string) => {
         const deleteSnippet = async () => {
             try {
-                const response = await fetch(apiUrl + `/snippets/${id}`, {
+                const response = await fetch(apiUrl + `/snippets/snippet/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
