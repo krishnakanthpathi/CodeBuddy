@@ -1,28 +1,13 @@
-
-interface LanguageChangerProps {
-    code: string;
-    setCode: (code: string) => void;
-    language: string;
-    setLanguage: (language: string) => void;
-}
+import type { UtilsProps } from "../../types/props";
 
 
-function LanguageChanger(props: LanguageChangerProps) {
-    const { language , setCode, setLanguage } = props;
-    const defaultCode: Record<string, string> = {
-        "python": '# Write your Python code here...',
-        "javascript": '// Write your JavaScript code here...',
-        "java": '// Write your Java code here...',
-        "csharp": '// Write your C# code here...',
-        "cpp": '// Write your C++ code here...'
+
+function LanguageChanger(props: UtilsProps) {
+    const { language  } = props;
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        props.setLanguage(e.target.value);
+        console.log('Language changed to:', e.target.value);
     }
-    const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const newLanguage = event.target.value;
-        setCode(defaultCode[newLanguage] || "");
-        setLanguage(newLanguage);
-        console.log('Language changed to:', newLanguage);
-    };
-
     return (
         <div className="flex items-center m-2 space-x-2">
             <label htmlFor="language" className="text-sm font-medium text-gray-700">Language:</label>

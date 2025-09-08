@@ -4,9 +4,6 @@ import { Navigate , useNavigate } from "react-router-dom";
 import type { UserProps } from '../../types/props';
 import type { SnippetState } from '../../types/snippet';
 
-import axios from 'axios';
-
-
 import Modal from '../Utils/ModelAlerts';
 
 function Snippets(props : UserProps) {
@@ -64,6 +61,7 @@ function Snippets(props : UserProps) {
             return;
         }
         navigate("/create" , { state: { snippet } });
+        console.log('Navigating to edit snippet:', snippet);
         setConfirmEditId(null);
     };
 

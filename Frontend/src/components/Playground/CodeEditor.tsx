@@ -25,7 +25,7 @@ function CodeEditor(props : UserProps) {
     
     // Extract snippet data from location state if available
     const snippet = location.state?.snippet;
-    const [code, setCode] = useState<string>( snippet?.snap || '# Write your code here... :)');
+    const [code, setCode] = useState<string>( snippet?.code || '# Write your code here... :)');
     const [title, setTitle] = useState<string>(snippet?.title || 'CodeBuddy Snippet');
     const [language, setLanguage] = useState<string>(snippet?.language || 'python');
     const [theme, setTheme] = useState<string>(snippet?.theme || 'vs-dark');
@@ -54,6 +54,7 @@ function CodeEditor(props : UserProps) {
     useEffect(() => {
         if (id) {
             updateSnippet({ id, title, code, language });
+            console.log('Snippet updated:', { id, title, code, language });
             return;
         };
         const create = async () => {
