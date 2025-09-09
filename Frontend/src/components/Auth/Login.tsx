@@ -33,6 +33,7 @@ function Login(props: UserProps) {
                 token: token,
                 snippets: response.data.snippets || []
             });
+            
             // Log the user data directly from the response
             console.log({
                 id: response.data.user.id,
@@ -43,6 +44,13 @@ function Login(props: UserProps) {
                 snippets: response.data.snippets || []
             });
             props.setIsAuthenticated(true);
+            localStorage.setItem('user', JSON.stringify({
+                id: response.data.user.id,
+                username: response.data.user.username,
+                email: response.data.user.email,
+                password: '', // Do not store password
+                token: token,
+            }));
             localStorage.setItem('token', token);
             console.log('Login successful:', response.data.token);
             
