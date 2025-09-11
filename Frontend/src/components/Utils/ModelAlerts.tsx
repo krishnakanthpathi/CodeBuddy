@@ -1,4 +1,4 @@
-import type { ModelAlertsProps } from '../../types/models';
+import type {  ModelAlertsProps } from '../../types/props';
 
 function ModelAlerts(props : ModelAlertsProps) {
     const {
