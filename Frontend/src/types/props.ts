@@ -34,3 +34,11 @@ export interface ModelAlertsProps {
     confirmText?: string;
     cancelText?: string;
 }
+
+export interface ModelNotifyProps {
+    open: boolean;
+    message: string;
+    type: 'success' | 'error' | 'info';
+    duration?: number;
+    onClose: () => void;
+}
